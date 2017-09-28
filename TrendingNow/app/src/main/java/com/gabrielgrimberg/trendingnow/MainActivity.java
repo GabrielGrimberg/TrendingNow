@@ -7,7 +7,6 @@ import android.util.Log;
 
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
@@ -25,7 +24,7 @@ public class MainActivity extends AppCompatActivity
 
         Log.d(TAG, "onCreate: Starting AsyncTask");
         DownloadData downloadData = new DownloadData();
-        downloadData.execute("URL in here.");
+        downloadData.execute("http://ax.itunes.apple.com/WebObjects/MZStoreServices.woa/ws/RSS/topfreeapplications/limit=10/xml");
         Log.d(TAG, "onCreate: done");
 
     }
@@ -97,7 +96,10 @@ public class MainActivity extends AppCompatActivity
                         xmlResults.append(String.copyValueOf(inputBuffer, 0, charsRead) );
                     }
                 }
+                //To auto close the input stream reader and the input stream.
                 reader.close();
+
+                return xmlResults.toString();
             }
             catch(MalformedURLException e)
             {
@@ -107,6 +109,8 @@ public class MainActivity extends AppCompatActivity
             {
                 Log.e(TAG, "downloadXML: IO Exception reading data: " + e.getMessage());
             }
+
+            return null;
         }
 
     }
