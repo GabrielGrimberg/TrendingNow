@@ -109,6 +109,12 @@ public class MainActivity extends AppCompatActivity
             {
                 Log.e(TAG, "downloadXML: IO Exception reading data: " + e.getMessage());
             }
+            //Connecting to internet
+            catch(SecurityException e)
+            {
+                Log.e(TAG, "downloadXML: Security Exception. Needs permission? " + e.getMessage());
+                //e.printStackTrace();
+            }
 
             return null;
         }
