@@ -6,9 +6,10 @@ package com.gabrielgrimberg.trendingnow;
 
 public class FeedContainer
 {
+
     private String name;
     private String artist;
-    private String releaseData;
+    private String releaseDate;
     private String summary;
     private String imageURL;
 
@@ -32,14 +33,14 @@ public class FeedContainer
         this.artist = artist;
     }
 
-    public String getReleaseData()
+    public String getReleaseDate()
     {
-        return releaseData;
+        return releaseDate;
     }
 
-    public void setReleaseData(String releaseData)
+    public void setReleaseDate(String releaseDate)
     {
-        this.releaseData = releaseData;
+        this.releaseDate = releaseDate;
     }
 
     public String getSummary()
@@ -65,9 +66,9 @@ public class FeedContainer
     @Override
     public String toString()
     {
-        return "name='" + name + '\n' +
-                ", artist='" + artist + '\n' +
-                ", releaseData='" + releaseData + '\n' +
-                ", imageURL='" + imageURL + '\n';
+        return "Name = " + name + '\n' +
+                ", Artist = " + artist + '\n' +
+                ", Release Date =" + releaseDate + '\n' +
+                ", Image URL =" + imageURL + '\n';
     }
 }
