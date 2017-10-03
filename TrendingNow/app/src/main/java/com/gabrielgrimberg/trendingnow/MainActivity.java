@@ -4,6 +4,8 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -16,11 +18,15 @@ public class MainActivity extends AppCompatActivity
 {
     private static final String TAG = "MainActivity";
 
+    private ListView listApps;
+
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        listApps = (ListView) findViewById(R.id.xmlListView);
 
         Log.d(TAG, "onCreate: Starting Asynctask");
         DownloadData downloadData = new DownloadData();
@@ -43,6 +49,15 @@ public class MainActivity extends AppCompatActivity
             Log.d(TAG, "onPostExecute: parameter is " + s);
             AppParser parseApplications = new AppParser();
             parseApplications.parse(s);
+
+            //Sending through to the array adapter.
+            ArrayAdapter<FeedContainer> arrayAdapter = new ArrayAdapter<FeedContainer>(
+                    MainActivity.this,  //Pass in instance of main activity.
+                    R.layout.list_item,  //Resource containing the text view that the array adapter will put the data into.
+                    parseApplications.getApps() ); //List of objects to dispaly.
+
+            listApps.setAdapter(arrayAdapter);
+
         }
 
         @Override
