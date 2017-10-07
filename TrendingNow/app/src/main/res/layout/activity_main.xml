@@ -8,9 +8,9 @@
 
     <ListView
         android:id="@+id/xmlListView"
-        android:layout_width="348dp"
-        android:layout_height="0dp"
-        tools:layout_editor_absoluteX="31dp"
-        tools:layout_editor_absoluteY="0dp"
-        tools:ignore="MissingConstraints" />
+        android:layout_width="368dp"
+        android:layout_height="495dp"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="8dp"
+        tools:layout_editor_absoluteY="8dp" />
 </android.support.constraint.ConstraintLayout>
