@@ -4,6 +4,8 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.ListView;
 
 import java.io.BufferedReader;
@@ -37,6 +39,19 @@ public class MainActivity extends AppCompatActivity
 
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu)
+    {
+        getMenuInflater().inflate(R.menu.feeds_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item)
+    {
+        return super.onOptionsItemSelected(item);
+    }
+
     private class DownloadData extends AsyncTask<String, Void, String>
     {
         private static final String TAG = "DownloadData";
@@ -45,7 +60,7 @@ public class MainActivity extends AppCompatActivity
         protected void onPostExecute(String s)
         {
             super.onPostExecute(s);
-            Log.d(TAG, "onPostExecute: parameter is " + s);
+//            Log.d(TAG, "onPostExecute: parameter is " + s);
             AppParser parseApplications = new AppParser();
             parseApplications.parse(s);
 

@@ -60,15 +60,6 @@ public class FeedAdapter extends ArrayAdapter
             viewHolder = (ViewHolder) convertView.getTag();
         }
 
-
-//        //Creating a view, uses layout inflator.
-//        View view = layoutInf.inflate(layoutRes, parent, false);
-//
-//        //Find the text widgets.
-//        TextView tvName = (TextView) convertView.findViewById(tvName);
-//        TextView tvArist = (TextView) convertView.findViewById(R.id.tvArist);
-//        TextView tvSummary = (TextView) convertView.findViewById(R.id.tvSummary);
-
         FeedContainer currentApp = apps.get(position);
 
         //Set into the corresponding textview.
