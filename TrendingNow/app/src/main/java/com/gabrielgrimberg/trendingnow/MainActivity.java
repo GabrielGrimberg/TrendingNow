@@ -4,7 +4,6 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import java.io.BufferedReader;
@@ -51,12 +50,16 @@ public class MainActivity extends AppCompatActivity
             parseApplications.parse(s);
 
             //Sending through to the array adapter.
-            ArrayAdapter<FeedContainer> arrayAdapter = new ArrayAdapter<FeedContainer>(
-                    MainActivity.this,  //Pass in instance of main activity.
-                    R.layout.list_item,  //Resource containing the text view that the array adapter will put the data into.
-                    parseApplications.getApps() ); //List of objects to dispaly.
+//            ArrayAdapter<FeedContainer> arrayAdapter = new ArrayAdapter<FeedContainer>(
+//                    MainActivity.this,  //Pass in instance of main activity.
+//                    R.layout.list_item,  //Resource containing the text view that the array adapter will put the data into.
+//                    parseApplications.getApps() ); //List of objects to dispaly.
+//
+//            listApps.setAdapter(arrayAdapter);
 
-            listApps.setAdapter(arrayAdapter);
+            FeedAdapter feedAdapter = new FeedAdapter(MainActivity.this, R.layout.list_record, parseApplications.getApps());
+
+            listApps.setAdapter(feedAdapter);
 
         }
 
