@@ -14,19 +14,22 @@
         android:text="TextView"
         android:textAlignment="center"
         android:textSize="20sp"
+        android:textStyle="bold"
         tools:layout_editor_absoluteX="14dp"
         tools:layout_editor_absoluteY="16dp" />
 
     <TextView
         android:id="@+id/tvArist"
-        android:layout_width="97dp"
+        android:layout_width="332dp"
         android:layout_height="20dp"
-        android:layout_marginRight="2dp"
-        android:layout_marginTop="17dp"
+        android:layout_marginEnd="130dp"
+        android:layout_marginTop="10dp"
         android:text="TextView"
+        android:textAlignment="center"
         android:textSize="18sp"
-        app:layout_constraintRight_toRightOf="@+id/tvName"
-        app:layout_constraintTop_toBottomOf="@+id/tvName" />
+        android:textStyle="italic"
+        app:layout_constraintTop_toBottomOf="@+id/tvName"
+        tools:layout_editor_absoluteX="14dp" />
 
     <TextView
         android:id="@+id/tvSummary"
@@ -34,11 +37,13 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
-        android:layout_marginTop="17dp"
+        android:layout_marginTop="13dp"
         android:text="TextView"
         android:textSize="18sp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvArist"
-        app:layout_constraintHorizontal_bias="0.0" />
+        app:layout_constraintHorizontal_bias="0.0"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp" />
 </android.support.constraint.ConstraintLayout>
