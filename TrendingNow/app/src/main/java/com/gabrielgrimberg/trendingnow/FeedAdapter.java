@@ -45,21 +45,52 @@ public class FeedAdapter extends ArrayAdapter
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent)
     {
-        //Creating a view, uses layout inflator.
-        View view = layoutInf.inflate(layoutRes, parent, false);
+        ViewHolder viewHolder;
 
-        //Find the text widgets.
-        TextView tvName = (TextView) view.findViewById(R.id.tvName);
-        TextView tvArist = (TextView) view.findViewById(R.id.tvArist);
-        TextView tvSummary = (TextView) view.findViewById(R.id.tvSummary);
+        //Making sure we do not create new views every-time.
+        if(convertView == null)
+        {
+            convertView = layoutInf.inflate(layoutRes, parent, false);
+
+            viewHolder = new ViewHolder(convertView);
+            convertView.setTag(viewHolder);
+        }
+        else
+        {
+            viewHolder = (ViewHolder) convertView.getTag();
+        }
+
+
+//        //Creating a view, uses layout inflator.
+//        View view = layoutInf.inflate(layoutRes, parent, false);
+//
+//        //Find the text widgets.
+//        TextView tvName = (TextView) convertView.findViewById(tvName);
+//        TextView tvArist = (TextView) convertView.findViewById(R.id.tvArist);
+//        TextView tvSummary = (TextView) convertView.findViewById(R.id.tvSummary);
 
         FeedContainer currentApp = apps.get(position);
 
         //Set into the corresponding textview.
-        tvName.setText(currentApp.getName());
-        tvArist.setText(currentApp.getArtist());
-        tvSummary.setText(currentApp.getSummary());
+        viewHolder.tvName.setText(currentApp.getName());
+        viewHolder.tvArist.setText(currentApp.getArtist());
+        viewHolder.tvSummary.setText(currentApp.getSummary());
 
-        return view;
+        return convertView;
+    }
+
+    private class ViewHolder
+    {
+        final TextView tvName;
+        final TextView tvArist;
+        final TextView tvSummary;
+
+        //Uses to find widgets.
+        ViewHolder(View v)
+        {
+            this.tvName = (TextView) v.findViewById(R.id.tvName);
+            this.tvArist = (TextView) v.findViewById(R.id.tvArist);
+            this.tvSummary = (TextView) v.findViewById(R.id.tvSummary);
+        }
     }
 }
