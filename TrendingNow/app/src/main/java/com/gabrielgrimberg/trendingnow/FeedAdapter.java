@@ -16,16 +16,16 @@ import java.util.List;
  * Created by GabrielGrimberg on 08/10/2017.
  */
 
-public class FeedAdapter extends ArrayAdapter
+public class FeedAdapter<T extends FeedContainer> extends ArrayAdapter
 {
     //Use for debugging.
     private static final String TAG = "FeedAdapter";
 
     private final int layoutRes;
     private final LayoutInflater layoutInf;
-    private List<FeedContainer> apps;
+    private List<T> apps;
 
-    public FeedAdapter(@NonNull Context context, @LayoutRes int resource, List<FeedContainer> apps)
+    public FeedAdapter(@NonNull Context context, @LayoutRes int resource, List<T> apps)
     {
         super(context, resource);
         this.layoutRes = resource;
@@ -58,7 +58,7 @@ public class FeedAdapter extends ArrayAdapter
             viewHolder = (ViewHolder) convertView.getTag();
         }
 
-        FeedContainer currentApp = apps.get(position);
+        T currentApp = apps.get(position);
 
         //Set into the corresponding textview.
         viewHolder.tvName.setText(currentApp.getName());

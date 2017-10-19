@@ -141,15 +141,7 @@ public class MainActivity extends AppCompatActivity
             AppParser parseApplications = new AppParser();
             parseApplications.parse(s);
 
-            //Sending through to the array adapter.
-//            ArrayAdapter<FeedContainer> arrayAdapter = new ArrayAdapter<FeedContainer>(
-//                    MainActivity.this,  //Pass in instance of main activity.
-//                    R.layout.list_item,  //Resource containing the text view that the array adapter will put the data into.
-//                    parseApplications.getApps() ); //List of objects to dispaly.
-//
-//            listApps.setAdapter(arrayAdapter);
-
-            FeedAdapter feedAdapter = new FeedAdapter(MainActivity.this, R.layout.list_record, parseApplications.getApps());
+            FeedAdapter<FeedContainer> feedAdapter = new FeedAdapter<>(MainActivity.this, R.layout.list_record, parseApplications.getApps());
 
             listApps.setAdapter(feedAdapter);
 
