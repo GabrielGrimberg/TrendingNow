@@ -11,4 +11,16 @@
     <item
         android:id="@+id/menuSongs"
         android:title="Songs" />
+
+    <group
+        android:id="@+id/MenuGroup"
+        android:checkableBehavior="single">
+    <item
+        android:id="@+id/menuTop10"
+        android:checked="true"
+        android:title="Top 10" />
+    <item
+        android:id="@+id/menuTop25"
+        android:title="Top 25" />
+    </group>
 </menu>
