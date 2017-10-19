@@ -22,6 +22,9 @@ public class MainActivity extends AppCompatActivity
     private ListView listApps;
     private String feedUrl = "http://ax.itunes.apple.com/WebObjects/MZStoreServices.woa/ws/RSS/topfreeapplications/limit=%d/xml";
     private int feedLimit = 10;
+    private String feedCachedUrl = "NA";
+    public static final String STATE_URL = "feedUrl";
+    public static final String STATE_LIMIT = "feedLimit";
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -31,13 +34,29 @@ public class MainActivity extends AppCompatActivity
 
         listApps = (ListView) findViewById(R.id.xmlListView);
 
-        downloadUrl("http://ax.itunes.apple.com/WebObjects/MZStoreServices.woa/ws/RSS/topfreeapplications/limit=10/xml");
+        if(savedInstanceState != null)
+        {
+            feedUrl = savedInstanceState.getString(STATE_URL);
+            feedLimit = savedInstanceState.getInt(STATE_LIMIT);
+        }
+
+        downloadUrl(String.format(feedUrl, feedLimit));
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu)
     {
         getMenuInflater().inflate(R.menu.feeds_menu, menu);
+
+        if(feedLimit == 10)
+        {
+            menu.findItem(R.id.menuTop10).setChecked(true);
+        }
+        else
+        {
+            menu.findItem(R.id.menuTop25).setChecked(true);
+        }
+
         return true;
     }
 
@@ -46,39 +65,68 @@ public class MainActivity extends AppCompatActivity
     {
         int id = item.getItemId();
 
-        String feedUrl;
 
         switch(id)
         {
             case R.id.menuFree:
-                feedUrl = "http://ax.itunes.apple.com/WebObjects/MZStoreServices.woa/ws/RSS/topfreeapplications/limit=10/xml";
+                feedUrl = "http://ax.itunes.apple.com/WebObjects/MZStoreServices.woa/ws/RSS/topfreeapplications/limit=%d/xml";
                 break;
 
             case R.id.MenuPaid:
-                feedUrl = "http://ax.itunes.apple.com/WebObjects/MZStoreServices.woa/ws/RSS/toppaidapplications/limit=10/xml";
+                feedUrl = "http://ax.itunes.apple.com/WebObjects/MZStoreServices.woa/ws/RSS/toppaidapplications/limit=%d/xml";
                 break;
 
             case R.id.menuSongs:
-                feedUrl = "http://ax.itunes.apple.com/WebObjects/MZStoreServices.woa/ws/RSS/topsongs/limit=10/xml";
+                feedUrl = "http://ax.itunes.apple.com/WebObjects/MZStoreServices.woa/ws/RSS/topsongs/limit=%d/xml";
+                break;
+
+            case R.id.menuTop10:
+            case R.id.menuTop25:
+                if(!item.isCheckable())
+                {
+                    item.setChecked(true);
+                    feedLimit = 35 - feedLimit;
+                }
+                break;
+
+            case R.id.menuRef:
+                feedCachedUrl = "NA";
                 break;
 
             default:
                 return super.onOptionsItemSelected(item);
         }
 
-        downloadUrl(feedUrl);
+        downloadUrl(String.format(feedUrl, feedLimit));
         return true;
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState)
+    {
+        outState.putString(STATE_URL, feedUrl);
+        outState.putInt(STATE_LIMIT, feedLimit);
+        super.onSaveInstanceState(outState);
     }
 
     private void downloadUrl(String feedUrl)
     {
-        Log.d(TAG, "downloadUrl: Starting Asynctask");
-        DownloadData downloadData = new DownloadData();
+        if(!feedUrl.equalsIgnoreCase(feedCachedUrl))
+        {
+            Log.d(TAG, "downloadUrl: Starting Asynctask");
+            DownloadData downloadData = new DownloadData();
 
-        //Link to the data of the RSS.
-        downloadData.execute(feedUrl);
+            //Link to the data of the RSS.
+            downloadData.execute(feedUrl);
 
-        Log.d(TAG, "downloadUrl: done");
+            feedCachedUrl = feedUrl; //Check and confirm we are not redownloading same URL again.
+
+            Log.d(TAG, "downloadUrl: done");
+        }
+        else
+        {
+            Log.d(TAG, "downloadedUrl: URL not changed");
+        }
     }
 
     private class DownloadData extends AsyncTask<String, Void, String>

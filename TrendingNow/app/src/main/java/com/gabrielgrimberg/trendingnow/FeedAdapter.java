@@ -31,8 +31,6 @@ public class FeedAdapter extends ArrayAdapter
         this.layoutRes = resource;
         this.layoutInf = LayoutInflater.from(context);
         this.apps = apps;
-
-
     }
 
     @Override
